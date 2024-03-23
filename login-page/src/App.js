@@ -22,7 +22,7 @@ export default function App() {
   return (
     <div>
       <h2>Login Page</h2>
-      {loggedIn === false && <p>Invalid username or password</p>}
+      {loggedIn === true?(<p>Welcome, {username}!</p>) :(loggedIn === false && <p>Invalid username or password</p>) }
       {!loggedIn && (
         <form onSubmit={handleSubmit}>
           <div>
@@ -52,7 +52,6 @@ export default function App() {
           <button type="submit">Submit</button>
         </form>
       )}
-      {loggedIn === true && <p>Welcome, {username}!</p>}
     </div>
   );
 }
