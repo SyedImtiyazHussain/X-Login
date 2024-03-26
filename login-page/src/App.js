@@ -1,60 +1,61 @@
 import "./App.css";
 import { useState } from "react";
 
-export default function App() {
-  const [username, setUserName] = useState("");
+function App() {
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [flag, setFlag] = useState(0);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (username === "user" && password === "password") {
-      // alert("Login Successful");
-      setIsLoggedIn(true);
-      setError("");
-    } else {
-      setIsLoggedIn(false);
-      setError("Invalid username or password");
-      // alert("Invalid username or password");
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    username === "user" && password === "password" ? setFlag(1) : setFlag(2);
   };
+
   return (
-    <div>
+    <div className="App">
       <h1>Login Page</h1>
-      {isLoggedIn?(<p>Welcome, {username}!</p>) :(
-      <form onSubmit={handleSubmit}>
-        {error && <p>{error}</p>}
+      {flag === 0 ? (
+        <form onSubmit={(e) => handleSubmit(e)}>
           <div>
             <label htmlFor="username" name="username">
-              Username:
-              <input
-                type="text"
-                name="username"
-                placeholder="username"
-                value={username}
-                onChange={(e) => setUserName(e.target.value)}
-                required
-              />
+              Username
             </label>
+            <input
+              type="text"
+              name="username"
+              value={username}
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+              required
+            />
           </div>
           <div>
             <label htmlFor="password" name="password">
-              Password:
-              <input
-                type="password"
-                password="password"
-                placeholder="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              Password
             </label>
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              required
+            />
           </div>
-          <div>
-          <button type="submit" name="login">Submit</button>
-          </div>
-        </form>) }
+
+          <button type="submit" name="login">
+            Submit
+          </button>
+        </form>
+      ) : flag === 1 ? (
+        "Welcome, user!"
+      ) : (
+        "Invalid username or password"
+      )}
     </div>
   );
 }
+
+export default App;
