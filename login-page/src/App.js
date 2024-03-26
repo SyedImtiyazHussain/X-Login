@@ -4,32 +4,33 @@ import { useState } from "react";
 export default function App() {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [loggedIn, setLoggedIn] = useState();
+  const [error, setError] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(!username) {
-      return;
-    }
     if (username === "user" && password === "password") {
       // alert("Login Successful");
-      setLoggedIn(true);
+      setIsLoggedIn(true);
+      setError("");
     } else {
-      setLoggedIn(false);
+      setIsLoggedIn(false);
+      setError("Invalid username or password");
       // alert("Invalid username or password");
     }
   };
   return (
     <div>
-      <h2>Login Page</h2>
-      {loggedIn === true?(<p>Welcome, {username}!</p>) :(loggedIn === false && <p>Invalid username or password</p>) }
-      {!loggedIn && (
-        <form onSubmit={handleSubmit}>
+      <h1>Login Page</h1>
+      {isLoggedIn?(<p>Welcome, {username}!</p>) :(
+      <form onSubmit={handleSubmit}>
+        {error && <p>{error}</p>}
           <div>
-            <label>
+            <label htmlFor="username">
               Username:
               <input
                 type="text"
+                id="username"
                 placeholder="username"
                 value={username}
                 onChange={(e) => setUserName(e.target.value)}
@@ -42,6 +43,7 @@ export default function App() {
               Password:
               <input
                 type="password"
+                id="password"
                 placeholder="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -49,9 +51,10 @@ export default function App() {
               />
             </label>
           </div>
+          <div>
           <button type="submit">Submit</button>
-        </form>
-      )}
+          </div>
+        </form>) }
     </div>
   );
 }
