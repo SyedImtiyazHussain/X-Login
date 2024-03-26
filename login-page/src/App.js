@@ -26,11 +26,11 @@ export default function App() {
       <form onSubmit={handleSubmit}>
         {error && <p>{error}</p>}
           <div>
-            <label htmlFor="username">
+            <label htmlFor="username" name="username">
               Username:
               <input
                 type="text"
-                id="username"
+                name="username"
                 placeholder="username"
                 value={username}
                 onChange={(e) => setUserName(e.target.value)}
@@ -39,11 +39,11 @@ export default function App() {
             </label>
           </div>
           <div>
-            <label>
+            <label htmlFor="password" name="password">
               Password:
               <input
                 type="password"
-                id="password"
+                password="password"
                 placeholder="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -52,7 +52,7 @@ export default function App() {
             </label>
           </div>
           <div>
-          <button type="submit">Submit</button>
+          <button type="submit" name="login">Submit</button>
           </div>
         </form>) }
     </div>
